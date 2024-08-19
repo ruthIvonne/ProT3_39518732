@@ -32,12 +32,12 @@ class login_controller extends BaseController
             $ba = $data['baja'];
             if ($ba == 'SI') {
                 $session->setFlashdata('msg', 'usuario dado de baja');
-                return redirect()->to('/login_controller/index');
+                return redirect()->to('/login');
             }
             $verify_pass = password_verify($password, $pass);
             if ($verify_pass) {
                 $ses_data = [
-                    'id_usuario' => $data['id_usuario'],
+                    'id_usuario' => $data['Id_usuario'],
                     'nombre' => $data['nombre'],
                     'apellido' => $data['apellido'],
                     'usuario' => $data['usuario'],
@@ -50,18 +50,18 @@ class login_controller extends BaseController
                 return redirect()->to('/panel');
             } else {
                 $session->setFlashdata('msg', 'Password Incorrecta');
-                return redirect()->to('login');
+                return redirect()->to('/login');
             }
 
         } else {
             $session->setFlashdata('msg', 'No existe el email o es incorrecto');
-            return redirect()->to('login');;
+            return redirect()->to('/login');;
         }
     }
     public function logout()
     {
         $session = session();
         $session->destroy();
-        return redirect()->to('principal');
+        return redirect()->to('/');
     }
 }

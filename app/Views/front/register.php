@@ -1,17 +1,20 @@
 <div class="container mt-0 mb-0">
   <div class="row d-flex justify-content-center">
     <div class="card col-lg-6 w-75">
+
       <div class="card-header">
         <h4 class="text-center">Suscríbete aquí</h4>
       </div>
+
       <div class="card-body">
         <?php $validation = \Config\Services::validation(); ?>
-        <form method="post" action="<?php echo base_url('/enviar-form'); ?>" class="needs-validation" novalidate>
+        <form method="post" action="<?php echo base_url('/enviarform'); ?>" class="needs-validation" novalidate>
           <?= csrf_field(); ?>
           
           <?php if (!empty(session()->getFlashdata('fail'))): ?>
             <div class="alert alert-danger"><?= session()->getFlashdata('fail'); ?></div>
           <?php endif ?>
+
           <?php if (!empty(session()->getFlashdata('success'))): ?>
             <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
           <?php endif ?>
