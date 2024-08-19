@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Models\usuario_model;
 use CodeIgniter\Controller;
 
-class UsuarioController extends Controller
+class usuario_controller extends Controller
 {
 
     public function __construct()
@@ -33,6 +33,8 @@ class UsuarioController extends Controller
             'pais' => 'required|min_length[3]',
         ];
 
+        $formModel = new usuario_model();
+
         if (!$this->validate($rules)) {
             $data['titulo'] = 'suscribirse';
             $data['validation'] = $this->validator;
@@ -41,12 +43,10 @@ class UsuarioController extends Controller
             echo view('backend/usuario/register', $data);
             echo view('front/footer_view');
         } else {
-            $formModel = new usuario_model(); // Se crea una instancia del modelo
-
             $formModel->save([
                 'nombre' => $this->request->getVar('nombre'),
                 'apellido' => $this->request->getVar('apellido'),
-                'usuario' => $this->request->getVar('usuario'), // Cambiado de 'username' a 'usuario'
+                'usuario' => $this->request->getVar('usuario'), 
                 'email' => $this->request->getVar('email'),
                 'pass' => password_hash($this->request->getVar('pass'), PASSWORD_DEFAULT), // Hash de la contraseña
                 'ciudad' => $this->request->getVar('ciudad'),
@@ -54,7 +54,7 @@ class UsuarioController extends Controller
             ]);
 
             session()->setFlashdata('success', 'Usuario registrado con éxito');
-            return $this->response->redirect('login');
+            return $this->response->redirect('/login');
         }
     }
 }
